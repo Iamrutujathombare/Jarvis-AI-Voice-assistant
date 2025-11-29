@@ -2,7 +2,7 @@ pipeline {
   agent any
 
   environment {
-    TARGET = "ubuntu@18.139.229.163"
+    TARGET = "ubuntu@3.110.42.224"
   }
 
   triggers {
