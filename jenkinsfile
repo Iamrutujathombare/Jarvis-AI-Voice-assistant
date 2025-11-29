@@ -10,7 +10,6 @@ pipeline {
   }
 
   stages {
-
     stage("Checkout") {
       steps {
         git url: "https://github.com/Iamrutujathombare/Jarvis-AI-Voice-assistant.git", branch: "main"
@@ -21,10 +20,9 @@ pipeline {
       steps {
         sshagent(['node-key']) {
           sh '''
-          ssh -o StrictHostKeyChecking=no $TARGET "echo Connected"
-          ssh $TARGET "sudo mkdir -p /opt/jarvis && sudo chown ubuntu:ubuntu /opt/jarvis"
-          rsync -avz --delete --exclude venv . $TARGET:/opt/jarvis
-          ssh $TARGET "sudo systemctl restart jarvis.service"
+          ssh -o StrictHostKeyChecking=no ubuntu@3.7.70.244 "echo Connected"
+          rsync -avz --delete --exclude venv . ${TARGET}:/opt/jarvis
+          ssh ${TARGET} "sudo systemctl restart jarvis"
           '''
         }
       }
