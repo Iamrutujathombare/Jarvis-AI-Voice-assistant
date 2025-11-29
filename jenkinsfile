@@ -1,0 +1,31 @@
+pipeline {
+  agent any
+
+  environment {
+    TARGET = "ubuntu@3.110.42.224"
+  }
+
+  triggers {
+    githubPush()
+  }
+
+  stages {
+    stage("Checkout") {
+      steps {
+        git url: "https://github.com/Iamrutujathombare/Jarvis-AI-Voice-assistant.git", branch: "main"
+      }
+    }
+
+    stage("Deploy to EC2") {
+      steps {
+        sshagent(['node-key']) {
+          sh '''
+          ssh -o StrictHostKeyChecking=no ubuntu@13.126.157.57 "echo Connected"
+          rsync -avz --delete --exclude venv . ${TARGET}:/opt/jarvis
+          ssh ${TARGET} "sudo systemctl restart jarvis"
+          '''
+        }
+      }
+    }
+  }
+}
