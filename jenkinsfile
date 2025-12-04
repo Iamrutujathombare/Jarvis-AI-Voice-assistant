@@ -2,7 +2,7 @@ pipeline {
   agent any
 
   environment {
-    TARGET = "ubuntu@3.7.70"
+    TARGET = "ubuntu@18.143.166.91"
   }
 
   triggers {
@@ -20,7 +20,7 @@ pipeline {
       steps {
         sshagent(['node-key']) {
           sh '''
-          ssh -o StrictHostKeyChecking=no ubuntu@3.7.70.244 "echo Connected"
+          ssh -o StrictHostKeyChecking=no ubuntu@18.143.166.91 "echo Connected"
           rsync -avz --delete --exclude venv . ${TARGET}:/opt/jarvis
           ssh ${TARGET} "sudo systemctl restart jarvis"
           '''
