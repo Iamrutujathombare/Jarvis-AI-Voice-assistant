@@ -2,7 +2,7 @@ pipeline {
   agent any
 
   environment {
-    TARGET = "ubuntu@3.7.70.244"
+    TARGET = "ubuntu@3.7.70"
   }
 
   triggers {
